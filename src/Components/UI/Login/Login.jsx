@@ -1,6 +1,6 @@
 import React from "react";
 // import "./SignUp.css";
-const Login = () => {
+const Login = ({setAuthType}) => {
   return (
     <div className="login auth_form">
       <h4>Login</h4>
@@ -15,11 +15,11 @@ const Login = () => {
           Password
           <input type="text" name="password" placeholder="Enter" />
         </label>
-        <button type="submit">CREATE ACCOUNT</button>
+        <button type="submit">LOGIN</button>
       </form>
       <hr />
       <p>
-        Don't have an Account? <button>SIGN UP</button>
+        Don't have an Account? <button onClick={()=>setAuthType("signup")}>SIGN UP</button>
       </p>
     </div>
   );
