@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./SignUp.css";
 const SignUp = () => {
   return (
     <div className="singup auth_form">
@@ -7,17 +7,22 @@ const SignUp = () => {
       <form>
         <label htmlFor="name">
           Name
-          <input type="text" name="name" />
+          <input type="text" name="name" placeholder="Enter" />
         </label>
         <label htmlFor="email">
           Email
-          <input type="email" name="email" />
+          <input type="email" name="email" placeholder="Enter" />
         </label>
         <label htmlFor="password">
-          password
-          <input type="text" name="password" />
+          Password
+          <input type="text" name="password" placeholder="Enter" />
         </label>
+        <button type="submit">CREATE ACCOUNT</button>
       </form>
+
+      <p>
+        Have an Account? <button>LOGIN</button>
+      </p>
     </div>
   );
 };
