@@ -1,8 +1,10 @@
 import { CiSearch, CiShoppingCart } from "react-icons/ci";
 
 import "./Navbar.css";
+import { useEcommerceData } from "../../../Context/EcommmerceContext";
 
 function Navbar() {
+  const { user } = useEcommerceData();
   return (
     <nav className="navbar">
       <h3>ECOMMERCE</h3>
@@ -16,7 +18,7 @@ function Navbar() {
       <div className="links2">
         <a href="#">Help</a>
         <a href="#">Orders & Returns</a>
-        <a href="#">Login</a>
+        <a href="#">{user?.name ? user.name : "Login"}</a>
       </div>
       <div className="usefull_links">
         <div className="links3">

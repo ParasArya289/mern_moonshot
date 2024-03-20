@@ -1,12 +1,12 @@
 import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
+import { useEcommerceData } from "../../Context/EcommmerceContext";
 
 const token = false;
 function ProtectedRoute({ children }) {
+  const {user} = useEcommerceData();
   const location = useLocation();
-  // const {token} = useAuth();
-  // console.log(token)
-  return token ? (
+  return user.email ? (
     children
   ) : (
     <Navigate to="/auth" state={{ from: location?.pathname }} replace />

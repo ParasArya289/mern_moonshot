@@ -3,6 +3,7 @@ import "./App.css";
 import Navbar from "./Components/UI/Navbar/Navbar";
 import { Auth } from "./Pages/Auth/Auth";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import Home from "./Pages/Home/Home";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
           path="/"
           element={
             <ProtectedRoute>
-              <div>Home</div>
+              <Home />
             </ProtectedRoute>
           }
         />
