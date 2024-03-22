@@ -112,7 +112,8 @@ export const EcommmerceContextProvider = ({ children }) => {
   const [user, setUser] = useState(storedUser);
   const [userData, setUserData] = useState(storedUsersData);
 
-  //   useEffect(() => {}, [user]);
+  const navigate = useNavigate();
+
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("usersData", JSON.stringify(userData));
@@ -142,6 +143,7 @@ export const EcommmerceContextProvider = ({ children }) => {
     if (foundUser) {
       localStorage.setItem("user", JSON.stringify(foundUser));
       setUser(() => foundUser);
+      navigate("/")
     } else {
       alert("Wrong credentials");
     }
@@ -158,9 +160,12 @@ export const EcommmerceContextProvider = ({ children }) => {
       int.name === name ? { ...int, isChecked: !int.isChecked } : int
     );
     setUser(() => modifiedUser);
-    setUserData((users) => [...users, modifiedUser]);
+    const newUserData = userData.map((u) =>
+      u.email === user.email ? modifiedUser : u
+    );
+    setUserData((users) => newUserData);
     localStorage.setItem("user", JSON.stringify(modifiedUser));
-    localStorage.setItem("usersData", JSON.stringify(userData));
+    localStorage.setItem("usersData", JSON.stringify(newUserData));
   };
 
   return (
