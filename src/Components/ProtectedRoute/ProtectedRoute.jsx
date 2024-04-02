@@ -6,7 +6,7 @@ const token = false;
 function ProtectedRoute({ children }) {
   const {user} = useEcommerceData();
   const location = useLocation();
-  return user.email ? (
+  return user?.email ? (
     children
   ) : (
     <Navigate to="/auth" state={{ from: location?.pathname }} replace />

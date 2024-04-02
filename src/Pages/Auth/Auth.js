@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SignUp from "../../Components/UI/SignUp/SignUp";
 import "./Auth.css";
 import Login from "../../Components/UI/Login/Login";
@@ -12,36 +12,52 @@ export const Auth = () => {
   const [generatedOtp, setGeneratedOtp] = useState(0);
   const [newUser, setNewUser] = useState({});
 
-  const {createUser} = useEcommerceData();
+  const { createUser, user, logout } = useEcommerceData();
   const navigate = useNavigate();
 
   const createOTP = (digit) => {
     return Math.floor(10000000 + Math.random() * (digit * 10000000));
   };
+  useEffect(() => {
+    // if (user.name) {
+    //   navigate("/");
+    // }
+  }, []);
   const onOtpSubmit = (userOtp) => {
     if (userOtp == generatedOtp) {
       createUser(newUser);
-      navigate("/")
-    }else{
-        alert("Wrong OTP")
+      navigate("/");
+    } else {
+      alert("Wrong OTP");
     }
   };
   return (
-    <div className="Auth">
-      {authType === "login" ? (
-        <Login setAuthType={setAuthType} />
-      ) : checkOtp ? (
-        <Otp digit={8} onOtpSubmit={onOtpSubmit} />
+    <div className="auth">
+      {!user?.name ? (
+        <>
+          {authType === "login" ? (
+            <Login setAuthType={setAuthType} />
+          ) : checkOtp ? (
+            <Otp digit={8} onOtpSubmit={onOtpSubmit} />
+          ) : (
+            <SignUp
+              setAuthType={setAuthType}
+              setCheckOtp={setCheckOtp}
+              createOTP={createOTP}
+              setGeneratedOtp={setGeneratedOtp}
+              setNewUser={setNewUser}
+            />
+          )}
+          {checkOtp && generatedOtp}
+        </>
       ) : (
-        <SignUp
-          setAuthType={setAuthType}
-          setCheckOtp={setCheckOtp}
-          createOTP={createOTP}
-          setGeneratedOtp={setGeneratedOtp}
-          setNewUser={setNewUser}
-        />
+        <>
+          <h4 className="user__desc">Hi {user.name} you are logged in.</h4>
+          <button className="user__logout" onClick={logout}>
+            Logout
+          </button>
+        </>
       )}
-      {checkOtp && generatedOtp}
     </div>
   );
 };

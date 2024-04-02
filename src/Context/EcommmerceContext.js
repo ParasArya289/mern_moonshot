@@ -106,19 +106,14 @@ const interests = [
 ];
 
 export const EcommmerceContextProvider = ({ children }) => {
-  const storedUser = JSON.parse(localStorage.getItem("user")) || "";
-  const storedUsersData = JSON.parse(localStorage.getItem("usersData"));
-
-  const [user, setUser] = useState(storedUser);
-  const [userData, setUserData] = useState(storedUsersData);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("usersData"))
+  );
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(user));
-    localStorage.setItem("usersData", JSON.stringify(userData));
-  }, [user, userData]);
-
+ 
   const createUser = (data) => {
     const newData = { ...data, interests: interests };
     localStorage.setItem("user", JSON.stringify(newData));
@@ -143,7 +138,7 @@ export const EcommmerceContextProvider = ({ children }) => {
     if (foundUser) {
       localStorage.setItem("user", JSON.stringify(foundUser));
       setUser(() => foundUser);
-      navigate("/")
+      navigate("/");
     } else {
       alert("Wrong credentials");
     }
